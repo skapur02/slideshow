@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slideshow</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .image-container img {
+            width: 400px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>Part 3: Image Slideshow</h2>
+    <!-- contains image for slideshow -->
+    <div class="image-container">
+        <img id="slideshow" src="images/image1.jpg" alt="Slideshow Image">
+    </div>
+    <!-- buttons to start and stop -->
+    <button id="startSlideshow">Start</button>
+    <button id="stopSlideshow">Stop</button>
+    
+    <script>
+        // array containing the image file paths 
+        let images = ["images/image1.jpg", "images/image2.jpg", "images/image3.jpg", "images/image4.jpg", "images/image5.jpg"];
+        let currentIndex = 0; // tracking current index imahge 
+        let interval; // variable storing interval ID for stopping slideshow
+        
+        // func to start slideshow 
+        function startSlideshow() {
+            interval = setInterval(() => {
+                $("#slideshow").fadeOut(1000, function() { // fade out current image 
+                    currentIndex = (currentIndex + 1) % images.length; // move to next image 
+                    $(this).attr("src", images[currentIndex]).fadeIn(1000); // chnage image and fade in 
+                });
+            }, 2500); // set interval time for chnaging images 
+        }
+        
+        // func to stop slideshow 
+        function stopSlideshow() {
+            clearInterval(interval); // clears interval to stop slideshow rotation 
+        }
+        
+        // start and stop button 
+        $("#startSlideshow").click(startSlideshow);
+        $("#stopSlideshow").click(stopSlideshow);
+    </script>
+</body>
+</html>
